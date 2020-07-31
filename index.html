@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="GenerateValue" class="form-control" type="text">
+                    <button id="clickBtn" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="calInput" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row" >
+                              <div id="sevenBtn" class="button" onclick="check('sevenBtn')">7</div>
+                              <div id="eightBtn" class="button" onclick="check('eightBtn')">8</div>
+                              <div id="nineBtn" class="button" onclick="check('nineBtn')">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div id="fourBtn" class="button" onclick="check('fourBtn')" >4</div>
+                              <div id="fiveBtn" class="button" onclick="check('fiveBtn')">5</div>
+                              <div id="sixBtn" class="button" onclick="check('sixBtn')">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div id="oneBtn" class="button" onclick="check('oneBtn')">1</div>
+                              <div id="twoBtn" class="button" onclick="check('twoBtn')">2</div>
+                              <div id="threeBtn" class="button" onclick="check('threeBtn')">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div id="removeLastDigit" class="button"><</div>
+                                <div id="zeroBtn" class="button" onclick="check('zeroBtn')">0</div>
+                                <div id="clearBtn" class="button"onclick="clear()">C</div>
+                            </div>
+                            <div>
+                                <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pinHide" class="notify-section">
+            <div id="pinNoMatch">
+                <p class="notify">❌ Pin Didn't Match, Please try again</p>
+            </div>
+           <div id="pinMatch">
+            <p class="notify">✅ Pin Matched... Secret door is opening for you </p>
+           </div>
+        </div>
+    </div>
+</body>
+
+<script>
+         // Pin hiding part
+                const PinHide = document.getElementById("pinHide");
+                PinHide.style.display = "none";
+
+         // generate button part
+                const buttonGenerate = document.getElementById("clickBtn");
+                buttonGenerate.addEventListener("click",function(){
+                const inputField = document.getElementById("GenerateValue").value;   
+                var number = Math.round(1000+Math.random()*9000);    
+                document.getElementById("GenerateValue").value = number;
+
+                })
+
+        // calculator part
+
+        function check(id){
+                let finalNumber =(document.getElementById("calInput").value += document.getElementById(id).innerText);
+                let finalValue = parseFloat(finalNumber);
+                }
+
+        // Submit Button Part
+
+                const submitButton = document.getElementById("submitBtn");
+                submitButton.addEventListener("click",function(){
+                let inputVal = parseFloat(document.getElementById("calInput").value);
+                let inputGenerateVal = document.getElementById("GenerateValue").value;
+                let  GenerateValue = parseFloat(inputGenerateVal);
+            
+        // GenerateValue & inputVal compare
+            
+          if (inputVal == GenerateValue) {
+                 const PinHide = document.getElementById("pinHide");
+                 PinHide.style.display = "block";
+                 let pinShow = document.getElementById("pinMatch");
+                 pinShow.style.display = "block";
+                 let pinShow2 = document.getElementById("pinNoMatch");
+                 pinShow2.style.display = "none";
+
+            }
+            else if (inputVal != GenerateValue) {
+                const PinHide = document.getElementById("pinHide");
+                PinHide.style.display = "block";
+                 let pinShow = document.getElementById("pinMatch");
+                 pinShow.style.display = "none";
+                 let pinShow2 = document.getElementById("pinNoMatch");
+                 pinShow2.style.display = "block";
+            }
+
+          })
+
+          //Clear 'C' Button Part
+              let clearButton = document.getElementById("clearBtn");
+              clearButton.addEventListener("click",function(){
+              const clearInput = document.getElementById("calInput").value = "";
+          })
+
+          // Remove Last Digit Part
+        let removeLastDigit = document.getElementById("removeLastDigit");
+        removeLastDigit.addEventListener("click",function(){
+            let inputValue = document.getElementById("calInput").value;
+            
+            document.getElementById("calInput").value = inputValue.substring(0,inputValue.length-1); 
+        })
+
+
+</script>
+
+
+</html>
